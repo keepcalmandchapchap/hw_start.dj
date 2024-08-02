@@ -34,7 +34,6 @@ def workdir_view(request):
     # который возвращает список файлов в рабочей 
     # директории
     workdir_list = os.listdir(r'C:\Users\user\OneDrive\Рабочий стол\netology\django_hw\dj-homeworks\1.1-first-project\first_project')
-    msg = f'Файлы текущей директории:\n \
-{', '.join(workdir_list)}'
+    msg = f'Файлы текущей директории: {', '.join(workdir_list)}'
     return HttpResponse(msg)
     # raise NotImplemented
