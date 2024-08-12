@@ -1,7 +1,9 @@
 from django.shortcuts import render
-
+from books.models import Book
+from django.core.paginator import Paginator
 
 def books_view(request):
-    template = 'books/books_list.html'
     context = {}
+    template = 'books/books_list.html'
+    
     return render(request, template, context)
