@@ -5,11 +5,12 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from measurement.models import Sensor, Measurement
-from measurement.serializers import SensorDetailSerializer, PostSensorSerializer, PatchSensorSerializer, MeasurementSerializer
+from measurement.serializers import SensorDetailSerializer, PostSensorSerializer, PatchSensorSerializer, MeasurementSerializer, PostMeasurementSerializer
 
 class SensorView(APIView):
     def get(self, request):
         sensors = Sensor.objects.all()
+        measurements = Measurement.objects.all()
         ser = SensorDetailSerializer(sensors, many=True)
         return Response(ser.data)
     def post(self, request):
@@ -38,11 +39,11 @@ class SingleSensorView(APIView):
 
 class MeasurementView(APIView):
     def post(self, request):
-        ser = MeasurementSerializer(data=request.data)
+        ser = PostMeasurementSerializer(data=request.data)
         if ser.is_valid():
             ser.save()
-            return Response(status.HTTP_201_CREATED)
-        return Response(status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
             
